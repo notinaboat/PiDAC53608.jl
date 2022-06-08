@@ -61,7 +61,7 @@ This design does not use the CLR pin, CLR = 5V [DAC53608, 8.3.1.3 p20].
                      └─────────────────────┘
 
 
-## ReferenceDAC_DATA_REGISTERs
+## References
 
 DAC53608: Octal Buffered Voltage Output DACs
 https://www.ti.com/lit/ds/symlink/dac53608.pdf
@@ -94,9 +94,11 @@ struct DAC53608 <: AbstractChannel{UInt16}
 end
 
 """
-    dac_open(;bus=1, address=0b1001_0000)::DAC53608
+    dac = dac_open(;bus=1, address=0b1001_0000)::DAC53608
+    dac[c] = v
 
 Connect to DAC53608 at `address` on i2c `bus`.
+Set AIO`x` to `v`.
 """
 function dac_open(;bus=1, address=0b1001_000)
 
@@ -174,7 +176,8 @@ end
 
 readme() = join([
     Docs.doc(@__MODULE__),
-    Docs.doc(dac_open)
+    Docs.doc(dac_open),
+    Docs.doc(dac_power_on),
    ], "\n\n")
 
 

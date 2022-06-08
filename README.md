@@ -57,7 +57,7 @@ R'Pi GPIO 3 (SC) │ ■ SCL         SDA ■ │ R'Pi GPIO 2 (SD)
                  └─────────────────────┘
 ```
 
-## ReferenceDAC*DATA*REGISTERs
+## References
 
 DAC53608: Octal Buffered Voltage Output DACs https://www.ti.com/lit/ds/symlink/dac53608.pdf
 
@@ -67,8 +67,16 @@ TCA9800: TCA9800 Level-Translating I2C Bus Buffer https://www.ti.com/lit/ds/syml
 
 
 ```
-dac_open(;bus=1, address=0b1001_0000)::DAC53608
+dac = dac_open(;bus=1, address=0b1001_0000)::DAC53608
+dac[c] = v
 ```
 
-Connect to DAC53608 at `address` on i2c `bus`.
+Connect to DAC53608 at `address` on i2c `bus`. Set AIO`x` to `v`.
+
+
+```
+dac_power_on(::DAC53608)
+```
+
+Clear PDN [DAC53608, Table 10, p29].
 
