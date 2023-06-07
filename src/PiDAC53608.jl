@@ -152,6 +152,9 @@ Read 16-bit value from `register`.
 function dac_read(dac, register)
     @assert register in 1:3 || register in 0b1000:0b1111
     n = i2cReadWordData(dac.i2c, register)
+    if n < 0
+        @error "dac_read register:$register = $n !"
+    end
     @assert n >= 0
     bswap(UInt16(n))
 end
